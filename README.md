@@ -2767,19 +2767,10 @@ CI/CD服务:
 + 查看自动部署动态
 
 
-
-  很不幸跑了十几分钟，最终失败了，是在倒数第二步Deploy的地方失败的😭😭😭
-
-  于是我又把main.yml里面的yarn换成了npm来操作，然后重新重复一轮上面的Git操作：add 、commit、 push、 tag、 push tag。
-
   我的代码地址：[realworld-nuxtjs](https://github.com/attraction11/realworld-nuxtjs)
-
-  重新发布部署一次，这次成功了，耶✌️✌️✌️
-
 
 
   项目主页的右侧还可以点进去看到发布日志以及版本和源代码
-
 
 
 + 访问网站：[http://106.75.13.23:3000/](http://106.75.13.23:3000/)
