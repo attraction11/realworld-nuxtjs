@@ -4,64 +4,55 @@
     <nav class="navbar navbar-light">
       <div class="container">
         <!-- <a class="navbar-brand" href="index.html">conduit</a> -->
-        <nuxt-link
-          class="navbar-brand"
-          to="/"
-        >Home</nuxt-link>
+        <nuxt-link class="navbar-brand" to="/">conduit</nuxt-link>
         <ul class="nav navbar-nav pull-xs-right">
           <li class="nav-item">
             <!-- Add "active" class when you're on that page" -->
             <!-- <a class="nav-link active" href="">Home</a> -->
-            <nuxt-link
-              class="nav-link"
-              to="/"
-              exact
-            >Home</nuxt-link>
+            <!-- 精确匹配，只有路由等于'/'才会高亮 -->
+            <nuxt-link class="nav-link" to="/" exact>Home</nuxt-link>
           </li>
+
+          <!-- 已登录 -->
           <template v-if="user">
             <li class="nav-item">
-              <nuxt-link
-                class="nav-link"
-                to="/editor"
-              >
-                <i class="ion-compose"></i>&nbsp;New Post
-              </nuxt-link>
+              <!-- <a class="nav-link" href=""> -->
+              <nuxt-link class="nav-link" to="/editor">
+                <i class="ion-compose"></i>&nbsp;New Article
+              </nuxt-link>  
+              <!-- </a> -->
             </li>
             <li class="nav-item">
-              <nuxt-link
-                class="nav-link"
-                to="/settings"
-              >
+              <!-- <a class="nav-link" href=""> -->
+              <nuxt-link class="nav-link" to="/settings">  
                 <i class="ion-gear-a"></i>&nbsp;Settings
-              </nuxt-link>
+              </nuxt-link>   
+              <!-- </a> -->
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" to="/profile/123">
-                <img
-                  class="user-pic"
-                  :src="user.image"
-                >
+              <nuxt-link 
+                class="nav-link"
+                :to="{
+                  name: 'profile',
+                  params: {
+                    username: user.username
+                  }
+                }"
+              >
+                <img class="user-pic" :src="user.image">
                 {{ user.username }}
               </nuxt-link>
             </li>
           </template>
 
+          <!-- 未登录 -->
           <template v-else>
             <li class="nav-item">
-              <nuxt-link
-                class="nav-link"
-                to="/login"
-              >
-                Sign in
-              </nuxt-link>
+              <!-- <a class="nav-link" href="">Sign up</a> -->
+              <nuxt-link class="nav-link" to="/register">Sign up</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link
-                class="nav-link"
-                to="/register"
-              >
-                Sign up
-              </nuxt-link>
+              <nuxt-link class="nav-link" to="/login">Sign in</nuxt-link>
             </li>
           </template>
         </ul>

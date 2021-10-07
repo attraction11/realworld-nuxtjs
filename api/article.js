@@ -9,16 +9,20 @@ export const getArticles = params => {
   })
 }
 
-// 获取公共文章列表
-export const getYourFeedArticles = params => {
+// 获取关注的用户文章列表
+export const getFeedArticles = params => {
   return request({
     method: 'GET',
     url: '/api/articles/feed',
-    params,
+    // Authorization: Token jwt.token.here
     // headers: {
-    //   // 添加用户身份，数据格式：Token空格Token数据
-    //   Authorization: `Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NDgxMTYsInVzZXJuYW1lIjoibHB6OTk5IiwiZXhwIjoxNTk3NzQxNTA4fQ.2yO8Fss4hYnvsIN2UYHsutQ1hmYqSSAA-UrIRnP4DOY`
-    // }
+    //   // 注意数据格式：Token空格数据Token
+    //   // 先手动写死，自动处理后续介绍
+    //   Authorization: `Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+    //     .eyJpZCI6MTMzMjY4LCJ1c2VybmFtZSI6InNoaWd1YW5naGFpIiwiZXhwIjoxNjE1MjgyMzcxfQ
+    //     ._QB6VDwPXLFSa30IScJ1q5Q_1zk5FXB99OYAKU3qMW0`
+    // },
+    params
   })
 }
 
@@ -46,10 +50,69 @@ export const getArticle = slug => {
   })
 }
 
+// 创建文章
+export const createArticle = data => {
+  return request({
+    method: 'POST',
+    url: 'api/articles',
+    data
+  })
+}
+
+// 更新文章
+export const updateArticle = (data, slug) => {
+  return request({
+    method: 'PUT',
+    url: `api/articles/${ slug }`,
+    data
+  })
+}
+
+// 删除文章
+export const deleteArticle = slug => {
+  return request({
+    method: 'DELETE',
+    url: `api/articles/${ slug }`
+  })
+}
+
 // 获取文章评论
 export const getComments = slug => {
   return request({
     method: 'GET',
     url: `/api/articles/${slug}/comments`
+  })
+}
+
+// 添加文章评论
+export const addComment = (slug, data) => {
+  return request({
+    method: 'POST',
+    url: `api/articles/${slug}/comments`,
+    data
+  })
+}
+
+// 删除文章评论
+export const deleteComment = (slug, id) => {
+  return request({
+    method: 'DELETE',
+    url: `api/articles/${slug}/comments/${id}`
+  })
+}
+
+// 添加关注
+export const addFollow = username => {
+  return request({
+    method: 'POST',
+    url: `api/profiles/${ username }/follow`
+  })
+}
+
+// 取消关注
+export const deleteFollow = username => {
+  return request({
+    method: 'DELETE',
+    url: `api/profiles/${ username }/follow`
   })
 }

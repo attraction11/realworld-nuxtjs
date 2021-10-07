@@ -1,4 +1,5 @@
 <template>
+  <!-- 文章详情 -->
   <div class="article-page">
 
     <div class="banner">
@@ -15,6 +16,13 @@
 
       <div class="row article-content">
         <div class="col-md-12" v-html="article.body"></div>
+        <ul class="tag-list">
+          <li
+            class="tag-default tag-pill tag-outline"
+            v-for="tag in article.tagList"
+            :key="tag"
+          >{{ tag }}</li>
+        </ul>
       </div>
 
       <hr />
@@ -28,7 +36,7 @@
         <div class="col-xs-12 col-md-8 offset-md-2">
 
           <article-comments :article="article" />
-
+          
         </div>
 
       </div>
@@ -36,34 +44,39 @@
     </div>
 
   </div>
+  <!-- /文章详情 -->
 </template>
 
 <script>
 import { getArticle } from '@/api/article'
 import MarkdownIt from 'markdown-it'
-import ArticleMeta from './components/article-meta'
-import ArticleComments from './components/article-comments'
+import ArticleMeta from './components/article-meta.vue'
+import ArticleComments from './components/article-comments.vue'
 
 export default {
   name: 'ArticleIndex',
   async asyncData ({ params }) {
     const { data } = await getArticle(params.slug)
     const { article } = data
-    const md = new MarkdownIt()
+    const md = new MarkdownIt
     article.body = md.render(article.body)
     return {
-      article
+      article: article
     }
   },
   components: {
     ArticleMeta,
     ArticleComments
   },
-  head () {
+  head() {
     return {
       title: `${this.article.title} - RealWorld`,
       meta: [
-        { hid: 'description', name: 'description', content: this.article.description }
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.article.description
+        }
       ]
     }
   }
